@@ -165,48 +165,69 @@ const Home = (props: HomeProps) => {
     props.connection,
   ]);
 
+
   return (
     <main>
-      {wallet && (
-        <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
-      )}
+      <h1 className='titleGlow'>Zwickies Lair</h1>
+      <p className='subtitle'>Mint your Zwicky</p>
+      <div className='center-box-cont'>
+          <div className='minterbox' >
+                    <div className='mintsquare'>
 
-      {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}
+                    </div>
+                </div>
+                {
+                  wallet && (
 
-      {wallet && <p>Total Available: {itemsAvailable}</p>}
+                    <Countdown
+                    date={startDate}
+                    onMount={({ completed }) => completed && setIsActive(true)}
+                    onComplete={() => setIsActive(true)}
+                    renderer={renderCounter}
+                  />
+                  )
+                }
+          {wallet && (
+            <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
+          )}
 
-      {wallet && <p>Redeemed: {itemsRedeemed}</p>}
+          {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}
 
-      {wallet && <p>Remaining: {itemsRemaining}</p>}
+          {
+            wallet && <p>Price: 0.99 SOL</p>
+          }
 
-      <MintContainer>
-        {!wallet ? (
-          <ConnectButton>Connect Wallet</ConnectButton>
-        ) : (
-          <MintButton
-            disabled={isSoldOut || isMinting || !isActive}
-            onClick={onMint}
-            variant="contained"
-          >
-            {isSoldOut ? (
-              "SOLD OUT"
-            ) : isActive ? (
-              isMinting ? (
-                <CircularProgress />
-              ) : (
-                "MINT"
-              )
+          {wallet && <p>Minted: {itemsRedeemed}/{itemsAvailable}</p>}
+
+          <MintContainer>
+            {!wallet ? (
+              <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
             ) : (
-              <Countdown
-                date={startDate}
-                onMount={({ completed }) => completed && setIsActive(true)}
-                onComplete={() => setIsActive(true)}
-                renderer={renderCounter}
-              />
+              <MintButton
+                disabled={isSoldOut || isMinting || !isActive}
+                onClick={onMint}
+                variant="contained"
+              >
+                {isSoldOut ? (
+                  "SOLD OUT"
+                ) : isActive ? (
+                  isMinting ? (
+                    <CircularProgress />
+                  ) : (
+                    "MINT"
+                  )
+                ) : (
+                  <Countdown
+                    date={startDate}
+                    onMount={({ completed }) => completed && setIsActive(true)}
+                    onComplete={() => setIsActive(true)}
+                    renderer={renderCounter}
+                  />
+                )}
+              </MintButton>
             )}
-          </MintButton>
-        )}
-      </MintContainer>
+          </MintContainer>
+      </div>
 
       <Snackbar
         open={alertState.open}
