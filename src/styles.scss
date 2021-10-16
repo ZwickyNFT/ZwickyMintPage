@@ -90,8 +90,17 @@ body {
         }
 
         .connect-wallet-button {
-            width: 140px;
+            width: 142px;
             margin-top: 80px;
+            background-color: rgba(255, 255, 255, 0);
+            border: 2px solid #10e4e0;
+            border-radius: 10px;
+            transition: 0.6s all ease-out;
+            font-weight: bold;
+
+            &:hover {
+              background-color: #10e4e09d;
+            }
         }
 
         .center-box-cont {

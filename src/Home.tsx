@@ -46,7 +46,7 @@ const Home = (props: HomeProps) => {
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
   const [itemsRemaining, setItemsRemaining] = useState(0);
 
-  const [canMint, setCanMint] = useState(false);
+  const [canMint, setCanMint] = useState(true);
 
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
@@ -210,6 +210,7 @@ const Home = (props: HomeProps) => {
               <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
             ) : (
               canMint == true ? <MintButton
+              
               disabled={isSoldOut || isMinting || !isActive}
               onClick={onMint}
               variant="contained"
