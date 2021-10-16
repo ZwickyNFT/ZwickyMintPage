@@ -46,6 +46,8 @@ const Home = (props: HomeProps) => {
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
   const [itemsRemaining, setItemsRemaining] = useState(0);
 
+  const [canMint, setCanMint] = useState(false);
+
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
     message: "",
@@ -171,62 +173,68 @@ const Home = (props: HomeProps) => {
       <h1 className='titleGlow'>Zwickies Lair</h1>
       <p className='subtitle'>Mint your Zwicky</p>
       <div className='center-box-cont'>
+          <div className='mastermintb'>
           <div className='minterbox' >
                     <div className='mintsquare'>
 
                     </div>
                 </div>
-                {
+
+                {canMint ? <span/> : wallet && <p className='countdown-mint'>Time to launch: {
                   wallet && (
 
-                    <Countdown
+                   <Countdown
                     date={startDate}
                     onMount={({ completed }) => completed && setIsActive(true)}
-                    onComplete={() => setIsActive(true)}
+                    onComplete={() => {
+                      setIsActive(true);
+                      setCanMint(true);
+                    }}
                     renderer={renderCounter}
                   />
                   )
-                }
+                }</p>}
           {wallet && (
-            <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
+            <p className='mint-text-formt'>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")} (Balance: {(balance || 0).toLocaleString()} SOL)</p>
           )}
 
-          {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}
+          {wallet && <p></p>}
 
           {
-            wallet && <p>Price: 0.99 SOL</p>
+            wallet && <p className='mint-text-formt'>Price: 0.99 SOL</p>
           }
 
-          {wallet && <p>Minted: {itemsRedeemed}/{itemsAvailable}</p>}
-
+          {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/{itemsAvailable}</p> : wallet&&<p className='mint-text-formt'>Available: 10000</p>}
           <MintContainer>
             {!wallet ? (
               <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
             ) : (
-              <MintButton
-                disabled={isSoldOut || isMinting || !isActive}
-                onClick={onMint}
-                variant="contained"
-              >
-                {isSoldOut ? (
-                  "SOLD OUT"
-                ) : isActive ? (
-                  isMinting ? (
-                    <CircularProgress />
-                  ) : (
-                    "MINT"
-                  )
+              canMint == true ? <MintButton
+              disabled={isSoldOut || isMinting || !isActive}
+              onClick={onMint}
+              variant="contained"
+            >
+              {isSoldOut ? (
+                "SOLD OUT"
+              ) : isActive ? (
+                isMinting ? (
+                  <CircularProgress />
                 ) : (
-                  <Countdown
-                    date={startDate}
-                    onMount={({ completed }) => completed && setIsActive(true)}
-                    onComplete={() => setIsActive(true)}
-                    renderer={renderCounter}
-                  />
-                )}
-              </MintButton>
+                  "MINT"
+                )
+              ) : (
+                <Countdown
+                  date={startDate}
+                  onMount={({ completed }) => completed && setIsActive(true)}
+                  onComplete={() => setIsActive(true)}
+                  renderer={renderCounter}
+                />
+              )}
+            </MintButton> : <span/>
             )}
           </MintContainer>
+              </div>
+                
       </div>
 
       <Snackbar
