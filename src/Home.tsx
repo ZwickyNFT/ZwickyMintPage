@@ -207,7 +207,7 @@ const Home = (props: HomeProps) => {
             {!wallet ? (
               <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
             ) : (
-              canMint == true ? <MintButton
+              canMint === true ? <MintButton
               
               disabled={isSoldOut || isMinting || !isActive}
               onClick={onMint}
