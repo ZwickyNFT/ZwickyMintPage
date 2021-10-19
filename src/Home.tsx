@@ -42,7 +42,6 @@ const Home = (props: HomeProps) => {
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
 
-  const [itemsAvailable, setItemsAvailable] = useState(0);
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
 
   const [canMint, setCanMint] = useState(true);
@@ -74,7 +73,6 @@ const Home = (props: HomeProps) => {
         props.connection
       );
 
-      setItemsAvailable(itemsAvailable);
       setItemsRedeemed(itemsRedeemed);
 
       setIsSoldOut(itemsRemaining === 0);
