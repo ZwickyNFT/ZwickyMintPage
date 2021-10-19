@@ -45,7 +45,7 @@ const Home = (props: HomeProps) => {
   const [itemsAvailable, setItemsAvailable] = useState(0);
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
 
-  const [canMint, setCanMint] = useState(false);
+  const [canMint, setCanMint] = useState(true);
 
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
