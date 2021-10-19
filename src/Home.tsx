@@ -202,7 +202,7 @@ const Home = (props: HomeProps) => {
             wallet && <p className='mint-text-formt'>Price: 0.49 SOL</p>
           }
 
-          {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/{itemsAvailable}</p> : wallet&&<p className='mint-text-formt'>Available: 10000</p>}
+          {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/5000</p> : wallet&&<p className='mint-text-formt'>Available: 5000</p>}
           <MintContainer>
             {!wallet ? (
               <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
