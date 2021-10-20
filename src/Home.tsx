@@ -199,7 +199,7 @@ const Home = (props: HomeProps) => {
           {wallet && <p></p>}
 
           {
-            wallet && <p className='mint-text-formt'>Price: 0.49 SOL</p>
+            wallet && <p className='mint-text-formt'>Price: 0.25 SOL</p>
           }
 
           {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/{itemsAvailable/2}</p> : wallet&&<p className='mint-text-formt'>Available: 5000</p>}
