@@ -42,6 +42,7 @@ const Home = (props: HomeProps) => {
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
 
+  const [itemsAvailable, setItemsAvailable] = useState(0);
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
 
   const [canMint, setCanMint] = useState(true);
@@ -73,6 +74,7 @@ const Home = (props: HomeProps) => {
         props.connection
       );
 
+      setItemsAvailable(itemsAvailable);
       setItemsRedeemed(itemsRedeemed);
 
       setIsSoldOut(itemsRemaining === 0);
@@ -200,7 +202,7 @@ const Home = (props: HomeProps) => {
             wallet && <p className='mint-text-formt'>Price: 0.49 SOL</p>
           }
 
-          {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/5000</p> : wallet&&<p className='mint-text-formt'>Available: 5000</p>}
+          {canMint ? wallet && <p className='mint-text-formt'>Minted: {itemsRedeemed}/{itemsAvailable/2}</p> : wallet&&<p className='mint-text-formt'>Available: 5000</p>}
           <MintContainer>
             {!wallet ? (
               <ConnectButton className='connect-wallet-button'>Connect Wallet</ConnectButton>
